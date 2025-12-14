@@ -151,15 +151,21 @@ function createoption(selectElement, label, value = "") {
  */
 function createNewElement(obj, form, array) {
 
+    const select = getSelectElement();
+    
+    createoption(select, obj.who1, obj.who1)
+    if (obj.who2 !== undefined){
+        createoption(select, obj.who2, obj.who2)
+    }
+
     // ez egy ismerős rész, ehhez nem kell nyúlni
     array.push(obj);
     renderTbody(array);
     form.reset();
     // ismerős rész vége
-    createoption(select, x.who1, x.who1)
-        if(x.who2 != undefined){
-            createoption(select, x.who2, x.who2)
-        }
+    
+    const checkbox = form.querySelector('#masodikmano');
+    changeCheckboxValue(checkbox);
 
 }
 
@@ -177,6 +183,13 @@ function createNewElement(obj, form, array) {
  * @returns {string}
  */
 function mapMuszak(muszakValue){
-    console.log(muszakValue);
+    if (muszakValue === "1") {
+        muszakValue = "Délelőttös";
+    } else if (muszakValue === "2") {
+        muszakValue = "Délutános";
+    } else if (muszakValue === "3") {
+        muszakValue = "Éjszakai";
+    }
+
     return muszakValue;
 }
